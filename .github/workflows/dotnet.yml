@@ -1,4 +1,4 @@
-name: .NET Build and Test
+name: .NET Build and Test Workflow
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +19,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'  # Change if using a different version
+          dotnet-version: '8.0.x'  # Ensure this matches your project
 
-      - name: Restore dependencies
+      - name: Restore Dependencies
         run: dotnet restore
 
-      - name: Build Solution
-        run: dotnet build --no-restore
+      - name: Build the Project
+        run: dotnet build --no-restore --configuration Release
 
-      - name: Run Tests
+      - name: Run Unit Tests
         run: dotnet test --no-build --verbosity normal
